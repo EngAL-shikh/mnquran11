@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.MicroDiv.mnquran2">
+    package="com.MicroDiv.mnquran1">
    <application
-        android:label="من بلاغة القرآن الجزء الثاني"
+        android:label="من بلاغة القرآن الجزء الأول"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

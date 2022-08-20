@@ -1,4 +1,4 @@
-package com.MicroDiv.mnquran2
+package com.MicroDiv.mnquran1
 
 import io.flutter.embedding.android.FlutterActivity
 

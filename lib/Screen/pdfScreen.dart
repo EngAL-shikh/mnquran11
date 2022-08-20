@@ -1,10 +1,13 @@
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-
+import 'package:get_storage/get_storage.dart';
 
 /// Represents the Homepage for Navigation
 class HomePage extends StatefulWidget {
+  final box = GetStorage();
   @override
   _HomePage createState() => _HomePage();
 }
@@ -16,6 +19,8 @@ class _HomePage extends State<HomePage> {
   late bool _showToolbar;
   late bool _showScrollHead;
   late  bool prot;
+  final box = GetStorage();
+
 
   /// Ensure the entry history of Text search.
   LocalHistoryEntry? _historyEntry;
@@ -25,6 +30,12 @@ class _HomePage extends State<HomePage> {
     _showToolbar = false;
     _showScrollHead = true;
     prot = true;
+
+     if(box.read("save")!=null){
+       _pdfViewerController.jumpToPage(box.read("save"));
+     }
+
+   //box.read("save");
     super.initState();
   }
 
@@ -50,6 +61,7 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: _showToolbar
           ? AppBar(
@@ -86,7 +98,7 @@ class _HomePage extends State<HomePage> {
           : AppBar(
         centerTitle: true,
         title:const Text(
-          'من بلاغة القرآن الجزء الثاني',
+          'من بلاغة القرآن الجزء الأول',
           style: TextStyle(color: Colors.black87),
         ),
         leading:
@@ -164,6 +176,11 @@ class _HomePage extends State<HomePage> {
                   pageLayoutMode: !prot?PdfPageLayoutMode.single:PdfPageLayoutMode.continuous,
                 pageSpacing: 5,
                 otherSearchTextHighlightColor: Colors.lightBlue,
+                onPageChanged: (PdfPageChangedDetails details){
+
+
+                  box.write("save", _pdfViewerController.pageNumber);
+                },
 
 
 
@@ -354,6 +371,7 @@ class SearchToolbarState extends State<SearchToolbar> {
   void initState() {
     super.initState();
 
+
     focusNode = FocusNode();
     focusNode?.requestFocus();
   }
@@ -363,6 +381,7 @@ class SearchToolbarState extends State<SearchToolbar> {
     // Clean up the focus node when the Form is disposed.
     focusNode?.dispose();
     super.dispose();
+
   }
 
   ///Clear the text search result
