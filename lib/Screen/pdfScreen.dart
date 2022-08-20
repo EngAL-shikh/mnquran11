@@ -111,6 +111,8 @@ class _HomePage extends State<HomePage> {
               setState(() {
                 _showScrollHead = false;
                 _showToolbar = true;
+
+
                 _ensureHistoryEntry();
               });
             },
